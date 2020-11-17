@@ -1,3 +1,9 @@
+
+/**
+ * helper function to take the phone array given by the frontend model
+ * and assigne them to the correct flattened objects in the database model.
+ * If two of the same type are received, the latter gets assigned
+ */
 const extractPhoneNumbers = (phoneArray) => {
   if(phoneArray) {
     return phoneArray.reduce((acc, phoneObj) => {
@@ -17,7 +23,13 @@ const extractPhoneNumbers = (phoneArray) => {
   return {};
 };
 
-const compilePhoneNumbers = (dbObject) => {
+/**
+ * helper function to pull phone params out of the database object
+ * and use them to construct the phone type array used by the frontend
+ * data model
+ */
+
+const compilePhoneArray = (dbObject) => {
   const phoneArray = [];
   if(dbObject.homePhone) {
     phoneArray.push({
@@ -43,6 +55,11 @@ const compilePhoneNumbers = (dbObject) => {
   return phoneArray;
 };
 
+/**
+ * maps an object returned from the frontend into the database
+ * object form. These objects are what is stored in the database
+ */
+
 export const toDatabase = (feObject) => {
   const compiledPhones = extractPhoneNumbers(feObject.phone);
   /* jshint ignore:start */
@@ -62,6 +79,10 @@ export const toDatabase = (feObject) => {
   /* jshint ignore:end */
 };
 
+/**
+ * maps an object returned from the database into the frontend
+ * object form. These are returned on getById, get all, and update
+ */
 export const toFrontend = (dbObject) => ({
   id: dbObject.id,
   name: {
@@ -75,10 +96,14 @@ export const toFrontend = (dbObject) => ({
     state: dbObject.state,
     zip: dbObject.zip,
   },
-  phone: compilePhoneNumbers(dbObject),
+  phone: compilePhoneArray(dbObject),
   email: dbObject.email,
 });
 
+/**
+ * maps an object returned from the database into the call list
+ * object form. This is returned by getCallList
+ */
 export const toCallList = (dbObject) => ({
   name: {
     first: dbObject.firstName,

@@ -148,5 +148,4 @@ describe('Mappers', () => {
       expect(actual).toEqual(expected);
     });
   });
-
 });
