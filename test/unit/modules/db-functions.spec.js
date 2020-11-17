@@ -192,11 +192,9 @@ describe('deleteItemById', () => {
 
     // not really a chain function, just a place holder for mocking collection
     const mockCollection = {
-      chain: () => ({
-        find: () => ({
-          remove: () => ({})
-        })
-      }),
+      
+      findOne: () => ({id: 1}),
+      remove: () => {}
     };
 
     const deleteItem = deleteItemById(mockCollection);

@@ -76,12 +76,16 @@ export const updateItem = (collection) => (id, item) => {
 };
 
 /**
- * function to delete by id. Regardless of if the object exists or not
- * this function will attempt to delete it. Does not throw errors
- * on non existent objects
+ * function to delete by id. First it attempts to find the object. If it
+ * does not it returns a 404 to the client. If the object does exist however
+ * it removes it from the collection
  */
 export const deleteItemById = (collection) => (id) => {
-  collection.chain().find({id}).remove();
+  const obj = collection.findOne({id});
+  if(!obj) {
+    throw new NotFoundError(id);
+  }
+  collection.remove(obj);
   return id;
 };
 

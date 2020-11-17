@@ -13,9 +13,7 @@ import { handleError } from './modules/custom-errors.js';
 var db = new Loki('AppDB');
 
 // establishing collection
-var contacts = db.addCollection('contacts', {
-  unique: 'id'
-});
+var contacts = db.addCollection('contacts');
 
 contacts.on('insert', function(input) { input.id = input.$loki; });
 
