@@ -190,9 +190,7 @@ describe('updateItem', () => {
 describe('deleteItemById', () => {
   it('should delete item and return id', async () => {
 
-    // not really a chain function, just a place holder for mocking collection
-    const mockCollection = {
-      
+    const mockCollection = {      
       findOne: () => ({id: 1}),
       remove: () => {}
     };
@@ -205,7 +203,6 @@ describe('deleteItemById', () => {
 });
 describe('getCallListItems', () => {
   it('should get all items and transform into call list format', async () => {
-    // not really a chain function, just a place holder for mocking collection
     const mockCollection = {
       where: () => multiDummyData,
     };
